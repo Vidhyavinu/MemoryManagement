@@ -26,6 +26,7 @@ ChatBot::ChatBot(std::string filename)
     _chatLogic = nullptr;
     _rootNode = nullptr;
 
+  
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
@@ -45,7 +46,7 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 // copy constructor
-ChatBot::ChatBot(const ChatBot& src)
+ChatBot::ChatBot(const ChatBot &src)
 {
     std::cout << "ChatBot Copy Constructor" << std::endl;
     
@@ -53,12 +54,14 @@ ChatBot::ChatBot(const ChatBot& src)
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
 
+  	_chatLogic->SetChatbotHandle(this);
+  
     // load image into heap memory
     _image = new wxBitmap(*src._image);
 }
 
 // Assignment operator
-ChatBot ChatBot::operator =(ChatBot& src)
+ChatBot& ChatBot::operator =(const ChatBot &src)
 {
     std::cout << "Assignment operator overloaded in ChatBot" << std::endl;
     
@@ -72,19 +75,20 @@ ChatBot ChatBot::operator =(ChatBot& src)
     // invalidate data handles
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
-
+	_chatLogic->SetChatbotHandle(this);
     // load image into heap memory
     _image = new wxBitmap(*src._image);
   	 return *this;
 }
 
 // move constructor
-ChatBot::ChatBot(ChatBot&& src)
+ChatBot::ChatBot(ChatBot &&src)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
     
     // invalidate data handles
     _chatLogic = src._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode = src._rootNode;
 	_image = src._image;
     
@@ -94,7 +98,7 @@ ChatBot::ChatBot(ChatBot&& src)
 }
 
 // Assignment operator
-ChatBot ChatBot::operator=(ChatBot&& src)
+ChatBot& ChatBot::operator=(ChatBot &&src)
 {
     std::cout << "ChatBot Move Assignment operator" << std::endl;
     
@@ -103,10 +107,9 @@ ChatBot ChatBot::operator=(ChatBot&& src)
         return *this;
     }
 
-  	delete _image;
-  
     // invalidate data handles
     _chatLogic = src._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode = src._rootNode;
 	_image = src._image;
   

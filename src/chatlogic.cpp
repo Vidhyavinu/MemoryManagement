@@ -255,8 +255,8 @@ void ChatLogic::SendMessageToUser(std::string message)
 
 wxBitmap *ChatLogic::GetImageFromChatbot()
 {
-   std::cout<<"GetImageFromChatbot"<<std::endl;
-  //Throwing exception here as _chatbot instance is NULL
+   //std::cout<<"GetImageFromChatbot"<<std::endl;
+ 
     return _chatBot->GetImageHandle();
-   std::cout<<"EOF GetImageFromChatbot"<<std::endl;
+   //std::cout<<"EOF GetImageFromChatbot"<<std::endl;
 }
