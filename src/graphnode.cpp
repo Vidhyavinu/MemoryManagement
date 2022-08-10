@@ -1,3 +1,5 @@
+#include<iostream>
+
 #include "graphedge.h"
 #include "graphnode.h"
 
@@ -11,7 +13,7 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    //delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
@@ -36,14 +38,18 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 ////
 void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
+ // std::cout<<"GraphNode::MoveChatbotHere"<<std::endl;
     _chatBot = std::move(chatbot);
-    _chatBot->SetCurrentNode(this);
+    _chatBot.SetCurrentNode(this);
+  // std::cout<<"EOF GraphNode::MoveChatbotHere"<<std::endl;
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
+ //  std::cout<<"GraphNode::MoveChatbotToNewNode"<<std::endl;
     newNode->MoveChatbotHere(std::move(_chatBot));
     //_chatBot = nullptr; // invalidate pointer at source
+ // std::cout<<"EOF GraphNode::MoveChatbotToNewNode"<<std::endl;
 }
 ////
 //// EOF STUDENT CODE
@@ -52,9 +58,9 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 {
     //// STUDENT CODE
     ////
-
+//std::cout<<"GraphNode::GetChildEdgeAtIndex"<<std::endl;
     return _childEdges[index].get();
-
+//std::cout<<"EOF GraphNode::GetChildEdgeAtIndex"<<std::endl;
     ////
     //// EOF STUDENT CODE
 }

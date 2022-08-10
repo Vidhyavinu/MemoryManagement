@@ -81,7 +81,7 @@ ChatBot ChatBot::operator =(ChatBot& src)
 // move constructor
 ChatBot::ChatBot(ChatBot&& src)
 {
-    std::cout << "ChatBot Move Copy Constructor" << std::endl;
+    std::cout << "ChatBot Move Constructor" << std::endl;
     
     // invalidate data handles
     _chatLogic = src._chatLogic;
@@ -96,7 +96,7 @@ ChatBot::ChatBot(ChatBot&& src)
 // Assignment operator
 ChatBot ChatBot::operator=(ChatBot&& src)
 {
-    std::cout << "Move Assignment operator in ChatBot" << std::endl;
+    std::cout << "ChatBot Move Assignment operator" << std::endl;
     
   	if (this == &src)
     {

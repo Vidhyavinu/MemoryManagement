@@ -18,10 +18,10 @@ ChatLogic::ChatLogic()
     ////
 
     // create instance of chatbot
-    _chatBot = new ChatBot("../images/chatbot.png");
+   // _chatBot = new ChatBot("../images/chatbot.png");
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    _chatBot->SetChatLogicHandle(this);
+   // _chatBot->SetChatLogicHandle(this);
 
     ////
     //// EOF STUDENT CODE
@@ -33,7 +33,7 @@ ChatLogic::~ChatLogic()
     ////
 
     // delete chatbot instance
-    delete _chatBot;
+    //delete _chatBot;
 
     // delete all nodes
     /*for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -125,7 +125,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     {
                         //// STUDENT CODE
                         ////
-
+						//std::cout<<"chatlogic line 128 find_if nodes"<<std::endl;
                         // check if node with this ID exists already
                         auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](std::unique_ptr<GraphNode> &node) { return node.get()->GetID() == id; });
 
@@ -138,7 +138,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             // add all answers to current node
                             AddAllTokensToElement("ANSWER", tokens, **newNode);
                         }
-
+			
+                      	//std::cout<<"EOF chatlogic line 128 find_if nodes"<<std::endl;
                         ////
                         //// EOF STUDENT CODE
                     }
@@ -148,7 +149,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     {
                         //// STUDENT CODE
                         ////
-
+//std::cout<<"chatlogic line 152 Graph Edge"<<std::endl;
                         // find tokens for incoming (parent) and outgoing (child) node
                         auto parentToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "PARENT"; });
                         auto childToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "CHILD"; });
@@ -172,7 +173,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             (*childNode)->AddEdgeToParentNode(edge.get());
                             (*parentNode)->AddEdgeToChildNode(std::move(edge));
                         }
-
+//std::cout<<"EOF chatlogic line 152 Graph Edge"<<std::endl;
                         ////
                         //// EOF STUDENT CODE
                     }
@@ -195,7 +196,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     //// STUDENT CODE
     ////
-
+//std::cout<<"chatlogic line 199 Graph Node"<<std::endl;
     // identify root node
     GraphNode *rootNode = nullptr;
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -217,13 +218,14 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     ChatBot chatBot("../images/chatbot.png");
     
-    SetChatbotHandle(&chatBot); // update _chatBot for chatLogic 
+    //SetChatbotHandle(&chatBot); // update _chatBot for chatLogic 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     chatBot.SetChatLogicHandle(this);
     chatBot.SetRootNode(rootNode);
     rootNode->MoveChatbotHere(std::move(chatBot));
     
-    ////
+    //std::cout<<"EOF chatlogic line 199 Graph Node"<<std::endl;
+  ////
     //// EOF STUDENT CODE
 }
 
@@ -239,7 +241,11 @@ void ChatLogic::SetChatbotHandle(ChatBot *chatbot)
 
 void ChatLogic::SendMessageToChatbot(std::string message)
 {
+  std::cout<<"SendMessageToChatbot"<<std::endl;
+ 
     _chatBot->ReceiveMessageFromUser(message);
+  
+   std::cout<<"EOF SendMessageToChatbot"<<std::endl;
 }
 
 void ChatLogic::SendMessageToUser(std::string message)
@@ -249,5 +255,8 @@ void ChatLogic::SendMessageToUser(std::string message)
 
 wxBitmap *ChatLogic::GetImageFromChatbot()
 {
+   std::cout<<"GetImageFromChatbot"<<std::endl;
+  //Throwing exception here as _chatbot instance is NULL
     return _chatBot->GetImageHandle();
+   std::cout<<"EOF GetImageFromChatbot"<<std::endl;
 }
